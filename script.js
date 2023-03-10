@@ -110,10 +110,22 @@ function getLocalTodos(){
 
         const trashButton = document.createElement("button");
         trashButton.innerHTML = '<i class="fa-sharp fa-solid fa-trash"></i>';
-        trashButton.classList.add("complete-btn");
+        trashButton.classList.add("trash-btn");
         todoDiv.appendChild(trashButton);
 
         todoList.appendChild(todoDiv);
     });
 }
 
+function removeLocalTodos(todo){
+    let todos;
+    if(localStorage.getItem("todos") === null){
+        todos = [];
+    } else{
+        todos = JSON.parse(localStorage.getItem("todos"));
+    }
+
+    const todoIndex = todo.children[0].innerText;
+    todos.splice(todos.indexOf(todoIndex), 1);
+    localStorage.setItem("todos", JSON.stringify(todos));
+}
